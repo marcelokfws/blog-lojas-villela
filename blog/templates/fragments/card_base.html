@@ -1,0 +1,48 @@
+<div class="card">
+
+    <a href="{% url 'post_detail' post.id %}">
+        <img src="{{ post.imagem_capa.url }}"
+             class="card-img-top"
+             alt="imagem do card"
+             style="height:350px">
+    </a>
+
+    <div class="card-body pb-4">
+        <a href="{% url 'post_detail' post.id %}" class="text-decoration-none text-dark">
+            <h4 class="card-title">
+                {{ post.titulo.foto }}
+            </h4>
+        </a>
+
+        <p class="card-text">
+            {{ post.topico_set.first.conteudo|slice:":500"|safe }}...
+        </p>
+
+        <p class="card-text">
+            <small class="text-muted d-flex justify-content-end"> {{ post.data_publicacao }} </small>
+        </p>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-center">
+
+                    <div class="span me-3 btn">
+                        <i class="fa-solid fa-heart"></i> Curtir
+                    </div>
+
+                    {% include 'social/btn_comentar_htmx.html' %}
+
+                    <div class="span me-3 btn">
+                        <i class="fa-solid fa-share"></i> Compartilhar
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="modals-here"></div>
+
+{% include "social/comentar_modal.html" %}

@@ -1,0 +1,146 @@
+{% extends "blog_base.html" %}
+{% load static %}
+
+{% block carousel %} {% endblock %}
+
+{% block content %}
+
+<div class="col-xl-8 border-start border-end">
+    <hr class="my-5">
+
+    <div class="container-fluid">
+        <div class="flex-row d-flex my-2">
+            <h1>{{ post.titulo }}</h1>
+
+            <span class="d-flex justify-content-center align-items-center ms-5">
+
+               <a href="#" class="text-decoration-none text-dark">
+                   <span class="ms-5"
+                         data-bs-toggle="tooltip"
+                         data-bs-placement="top"
+                         title="Compartilhar no Instagram">
+
+                    <i class="fa-brands fa-instagram-square fa-2xl"></i>
+                    </span>
+                </a>
+
+               <a href="#" class="text-decoration-none text-dark">
+                   <span class="ms-3"
+                         data-bs-toggle="tooltip"
+                         data-bs-placement="top"
+                         title="Compartilhar no Facebook">
+
+                        <i class="fa-brands fa-facebook fa-2xl"></i>
+                    </span>
+               </a>
+
+               <a href="#" class="text-decoration-none text-dark">
+                   <span class="ms-3"
+                         data-bs-toggle="tooltip"
+                         data-bs-placement="top"
+                         title="Compartilhar no Instagram">
+
+                       <i class="fa-brands fa-twitter fa-2xl"></i>
+                    </span>
+               </a>
+
+               <a href="#" class="text-decoration-none text-dark">
+                   <span class="ms-3"
+                         data-bs-toggle="tooltip"
+                         data-bs-placement="top"
+                         title="Compartilhar no Instagram">
+
+                       <i class="fa-solid fa-link fa-2xl"></i>
+                    </span>
+               </a>
+
+           </span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex flex-row align-items-center">
+                <div class="rounded-circle d-flex justify-content-center
+                    align-items-center avatar">
+                    <img src="{{ post.autor.foto.url }}"
+                        style="heigt:85px; width:85px"
+                        class="rounded-circle">
+                </div>
+
+                <p class="mb-0">
+                    <span class="text-muted justify-content-center">
+
+                        <span class="mx-2 h5">
+                            {{post.autor}}
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-clock"></i>
+                            <span>
+                                {{ post.tempo_leitura }}Min
+                            </span>
+                        </span>
+
+                        <br>
+
+                        <span class="mx-2"> <i class="fa-solid fa-tags"></i> </span>
+
+                        {% for tag in post.tag_set.all %}
+                            <span>
+                                <a href="#" class="text-decoration-none text-muted"> #{{ tag.nome }} </a>
+                            </span>
+                        {% endfor %}
+                        <br>
+
+                         <span class="mx-2">
+                             {{post.subtitulo}}
+                        </span>
+
+                    </span>
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+
+    <hr class="my-5">
+
+    <article class="fs-4 px-lg-5 mx-lg-2">
+        {% for topico in post.topico_set.all %}
+            {{ topico.conteudo|safe }}
+            <br />
+        {% endfor %}
+    </article>
+
+    <hr class="my-5">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-md-start justify-content-sm-center">
+
+                    <div class="span me-3 btn">
+                        <i class="fa-solid fa-heart fa-2xl"></i> Curtir
+                    </div>
+
+                    {% include 'social/btn_comentar_htmx.html' %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modals-here"></div>
+
+
+{% include 'social/comentar_modal.html' %}
+
+{% endblock %}
+
+
+{% block footer %}
+    {% include 'fragments/footer.html' %}
+{% endblock %}
